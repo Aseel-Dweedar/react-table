@@ -7,6 +7,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import "../styles/styles.scss";
 
 const DataGrid = ({
   data,
@@ -35,52 +36,34 @@ const DataGrid = ({
 
   return (
     <div>
-      <div>
-        <CustomInput
-          value={globalFilter}
-          onChange={table.setGlobalFilter}
-          placeholder="Search..."
-          type="text"
-        />
-      </div>
-      <div>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {"<"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          {">"}
-        </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          disabled={!table.getCanNextPage()}
-        >
-          {">>"}
-        </button>
-        <span className="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </strong>
-        </span>
-        <span className="flex items-center gap-1">
-          | Go to page:
+      <div className="d-flex justify-content-between mb-30">
+        <div className="custom-search-input">
+          <CustomInput
+            value={globalFilter}
+            onChange={table.setGlobalFilter}
+            placeholder="Search..."
+            type="text"
+          />
+        </div>
+        <div className="d-flex align-items-center gap-10">
+          <button
+            className={`${
+              !table.getCanPreviousPage() ? "disabled-pagination-button" : ""
+            } pagination-button font-family-cursive`}
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {"<<"}
+          </button>
+          <button
+            className={`${
+              !table.getCanPreviousPage() ? "disabled-pagination-button" : ""
+            } pagination-button`}
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {"Previous"}
+          </button>
           <input
             type="number"
             min="1"
@@ -90,21 +73,28 @@ const DataGrid = ({
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className="border p-1 rounded w-16"
+            className="form-control"
           />
-        </span>
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+          <span className="">of {table.getPageCount()}</span>
+          <button
+            className={`${
+              !table.getCanNextPage() ? "disabled-pagination-button" : ""
+            } pagination-button`}
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {"Next"}
+          </button>
+          <button
+            className={`${
+              !table.getCanNextPage() ? "disabled-pagination-button" : ""
+            } pagination-button font-family-cursive`}
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            {">>"}
+          </button>
+        </div>
       </div>
       <table>
         <thead>
@@ -112,15 +102,19 @@ const DataGrid = ({
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  <div onClick={header.column.getToggleSortingHandler()}>
+                  <div className="mb-10" onClick={header.column.getToggleSortingHandler()}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
                     )}
-                    {{
-                      asc: " 🔼",
-                      desc: " 🔽",
-                    }[header.column.getIsSorted()] ?? null}
+                    {(() => {
+                      const sortState = header.column.getIsSorted();
+                      const sortIcons = {
+                        asc: <button className="btn-asc sorting-btn" />,
+                        desc: <button className="btn-desc sorting-btn" />,
+                      };
+                      return sortIcons[sortState] ?? <button className="btn-default-sort sorting-btn" />;
+                    })()}
                   </div>
                   <div>
                     <CustomInput
@@ -138,6 +132,7 @@ const DataGrid = ({
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
+              {/* {console.warn(row.getVisibleCells())} */}
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

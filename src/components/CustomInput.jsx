@@ -13,6 +13,7 @@ const CustomInput = ({ onChange, initialValue, type, placeholder }) => {
 
   return (
     <input
+      className="form-control"
       placeholder={placeholder}
       type={type}
       value={value}

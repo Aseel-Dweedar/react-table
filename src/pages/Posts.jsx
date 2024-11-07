@@ -17,7 +17,7 @@ function Posts() {
     { accessorKey: "title", header: "Title", filterFn: "includesString" },
     {
       accessorKey: "body",
-      header: "Post",
+      header: "Description",
       filterFn: "includesString",
     },
   ];
