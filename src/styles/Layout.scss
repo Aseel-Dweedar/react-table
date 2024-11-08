@@ -24,13 +24,8 @@
             padding: 10px 20px;
         }
 
-        &.head-nav-item {
-            display: inline-block;
-
-            a {
-                border-radius: $border-radius-default;
-            }
-
+        &.head-nav-item a {
+            border-radius: $border-radius-default;
         }
 
         &.side-nav-item {
@@ -45,6 +40,10 @@
         a:hover,
         &.active-nav a {
             background-color: $color-background-secondary-hover;
+        }
+
+        &.active-nav a {
+            color: $color-bright;
         }
     }
 

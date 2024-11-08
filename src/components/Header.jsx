@@ -11,7 +11,7 @@ const Header = ({ navItems }) => {
       >
         <img src="/back-btn.png" alt="back button"></img>
       </button>
-      <div className="d-flex justify-content-center flex-grow">
+      <div className="d-flex justify-content-center flex-grow gap-10">
         {navItems.map((nav) => (
           <div
             key={nav.id}
