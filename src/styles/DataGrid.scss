@@ -9,7 +9,7 @@
         border-radius: $border-radius-default;
         overflow: hidden;
         width: 100%;
-        
+
         thead {
             background-color: $color-table-head;
         }
@@ -17,8 +17,15 @@
         tbody {
             background-color: $color-table-body;
 
-            tr:not(:last-child) {
-                border-bottom: 1px solid $border-color-default;
+            tr {
+                &:hover {
+                    background-color: $color-table-body-hover;
+                    cursor: pointer;
+                }
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $border-color-default;
+                }
             }
         }
 
@@ -30,7 +37,7 @@
 
     .custom-search-input {
         position: relative;
-    
+
         &::before {
             content: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' height='16' viewBox='0 0 16 16' width='16'><path d='M10.592 9.872L16 15.28L15.28 16L9.872 10.576C9.34933 11.0347 8.752 11.3867 8.08 11.632C7.41867 11.8773 6.72533 12 6 12C4.912 12 3.904 11.728 2.976 11.184C2.06933 10.6507 1.34933 9.93067 0.816 9.024C0.272 8.096 0 7.088 0 6C0 4.912 0.272 3.904 0.816 2.976C1.34933 2.06933 2.06933 1.34933 2.976 0.816C3.904 0.272 4.912 0 6 0C7.088 0 8.096 0.272 9.024 0.816C9.93067 1.34933 10.6507 2.06933 11.184 2.976C11.728 3.904 12 4.912 12 6C12 6.72533 11.8773 7.41867 11.632 8.08C11.3867 8.74133 11.04 9.33867 10.592 9.872ZM6.016 11.008C6.92267 11.008 7.76 10.7787 8.528 10.32C9.28533 9.88267 9.88267 9.28533 10.32 8.528C10.7787 7.76 11.008 6.92267 11.008 6.016C11.008 5.10933 10.7787 4.26667 10.32 3.488C9.88267 2.73067 9.28533 2.13333 8.528 1.696C7.76 1.23733 6.92267 1.008 6.016 1.008C5.10933 1.008 4.26667 1.23733 3.488 1.696C2.73067 2.13333 2.13333 2.73067 1.696 3.488C1.23733 4.26667 1.008 5.10933 1.008 6.016C1.008 6.92267 1.23733 7.76 1.696 8.528C2.13333 9.28533 2.73067 9.88267 3.488 10.32C4.26667 10.7787 5.10933 11.008 6.016 11.008Z'/></svg>");
             position: absolute;
@@ -38,7 +45,7 @@
             left: 10px;
             filter: $filter-img-white
         }
-    
+
         .form-control {
             height: 40px;
             padding-left: 40px;
@@ -72,7 +79,7 @@
         background-color: transparent;
 
         &::before {
-            filter: invert(26%) sepia(94%) saturate(1771%) hue-rotate(329deg) brightness(91%) contrast(85%);
+            filter: invert(39%) sepia(76%) saturate(4872%) hue-rotate(11deg) brightness(90%) contrast(98%);
             transform: scale(0.7);
             transform-origin: bottom;
             display: block;

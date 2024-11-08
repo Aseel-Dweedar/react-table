@@ -7,6 +7,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import { useNavigate } from "react-router-dom";
 
 const DataGrid = ({
   data,
@@ -16,7 +17,9 @@ const DataGrid = ({
   setColumnFilters,
   setGlobalFilter,
   globalFilterFn,
+  redirectPath
 }) => {
+  const navigate = useNavigate();
   const table = useReactTable({
     data,
     columns,
@@ -32,6 +35,10 @@ const DataGrid = ({
     getSortedRowModel: getSortedRowModel(),
     globalFilterFn,
   });
+
+  function handleRowClick(row) {
+    navigate(redirectPath + row.original.id );
+  }
 
   return (
     <div className="table-wrapper">
@@ -131,7 +138,7 @@ const DataGrid = ({
                       customStyle={{
                         width:
                           header.column.columnDef.header === "ID"
-                            ? "70px"
+                            ? "50px"
                             : "auto",
                       }}
                     />
@@ -143,7 +150,7 @@ const DataGrid = ({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr onClick={() => handleRowClick(row)} key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

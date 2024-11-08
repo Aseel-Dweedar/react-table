@@ -1,27 +1,53 @@
 import React from "react";
 import "./styles/index.scss";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import Layout from "./components/Layout.jsx";
+import Posts, { loader as postsLoader } from "./pages/Posts";
+import PostDetails, {
+  loader as postDetailsLoader,
+} from "./components/PostDetails";
+import Comments, { loader as commentsLoader } from "./pages/Comments";
+import CommentDetails, {
+  loader as commentDetailsLoader,
+} from "./components/CommentDetails";
+import Loading from "./pages/Loading";
+import ErrorPage from "./pages/ErrorPage";
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/posts" replace />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/posts",
-    element: <App />,
+    loadingElement: <Loading />,
     children: [
       {
-        path: "/posts/:PostId",
-        element: <App />,
+        path: "/",
+        element: <Navigate to="/posts" replace />,
+      },
+      {
+        path: "/posts",
+        element: <Posts />,
+        loader: postsLoader,
+      },
+      {
+        path: "/posts/:postId",
+        element: <PostDetails />,
+        loader: postDetailsLoader,
+      },
+      {
+        path: "/comments",
+        element: <Comments />,
+        loader: commentsLoader,
+      },
+      {
+        path: "/comments/:commentId",
+        element: <CommentDetails />,
+        loader: commentDetailsLoader,
       },
     ],
   },

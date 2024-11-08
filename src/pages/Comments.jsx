@@ -2,8 +2,9 @@ import { useState } from "react";
 import DataGrid from "../components/DataGrid";
 import { useLoaderData } from "react-router-dom";
 
-function Posts() {
+function Comments() {
   const data = useLoaderData();
+
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -11,11 +12,16 @@ function Posts() {
     {
       accessorKey: "id",
       header: "ID",
+      filterFn: "equalsString",
+    },
+    {
+      accessorKey: "name",
+      header: "Title",
       filterFn: "includesString",
     },
     {
-      accessorKey: "title",
-      header: "Title",
+      accessorKey: "email",
+      header: "Email",
       filterFn: "includesString",
     },
     {
@@ -27,7 +33,7 @@ function Posts() {
 
   return (
     <div>
-      <h1 className="color-bright mb-30">POSTS LIST</h1>
+      <h1 className="color-bright mb-30">COMMENTS LIST</h1>
       {data && (
         <DataGrid
           data={data}
@@ -36,8 +42,8 @@ function Posts() {
           setColumnFilters={setColumnFilters}
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
-          redirectPath="/posts/"
           globalFilterFn="includesString"
+          redirectPath="/comments/"
         />
       )}
     </div>
@@ -45,9 +51,9 @@ function Posts() {
 }
 
 export async function loader() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch("https://jsonplaceholder.typicode.com/comments");
   const data = await res.json();
   return data;
 }
 
-export default Posts;
+export default Comments;

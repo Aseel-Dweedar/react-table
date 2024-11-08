@@ -95,6 +95,18 @@ a {
     display: inline-block;
 }
 
+.w100 {
+    width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color-bright {
+    color: $color-bright;
+}
+
 .filter-white {
     filter: $filter-img-white;
 
@@ -112,4 +124,9 @@ a {
     color: $color-font-default;
     padding: 3px 5px;
     font-weight: normal;
+}
+
+.transparent-btn {
+    background-color: transparent;
+    border-color: transparent;
 }
