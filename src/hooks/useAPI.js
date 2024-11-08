@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 
 const useAPI = () => {
-  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +16,6 @@ const useAPI = () => {
         ...(body && { body: JSON.stringify(body) }),
       });
       const json = await res.json();
-      setData(json);
       setLoading(false);
       return { data: json };
     } catch (err) {
@@ -27,7 +25,7 @@ const useAPI = () => {
     }
   }, []);
 
-  return { apiCall, data, error, loading };
+  return { apiCall, error, loading };
 };
 
 export { useAPI };

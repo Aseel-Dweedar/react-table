@@ -7,7 +7,6 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import "../styles/styles.scss";
 
 const DataGrid = ({
   data,
@@ -35,7 +34,7 @@ const DataGrid = ({
   });
 
   return (
-    <div>
+    <div className="table-wrapper">
       <div className="d-flex justify-content-between mb-30">
         <div className="custom-search-input">
           <CustomInput
@@ -102,7 +101,10 @@ const DataGrid = ({
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  <div className="mb-10" onClick={header.column.getToggleSortingHandler()}>
+                  <div
+                    className="mb-10"
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
@@ -113,7 +115,11 @@ const DataGrid = ({
                         asc: <button className="btn-asc sorting-btn" />,
                         desc: <button className="btn-desc sorting-btn" />,
                       };
-                      return sortIcons[sortState] ?? <button className="btn-default-sort sorting-btn" />;
+                      return (
+                        sortIcons[sortState] ?? (
+                          <button className="btn-default-sort sorting-btn" />
+                        )
+                      );
                     })()}
                   </div>
                   <div>
@@ -122,6 +128,12 @@ const DataGrid = ({
                       onChange={header.column.setFilterValue}
                       placeholder="Search..."
                       type="text"
+                      customStyle={{
+                        width:
+                          header.column.columnDef.header === "ID"
+                            ? "70px"
+                            : "auto",
+                      }}
                     />
                   </div>
                 </th>
@@ -132,7 +144,6 @@ const DataGrid = ({
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              {/* {console.warn(row.getVisibleCells())} */}
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

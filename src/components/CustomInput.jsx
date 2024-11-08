@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const CustomInput = ({ onChange, initialValue, type, placeholder }) => {
+const CustomInput = ({ onChange, initialValue, type, placeholder, customStyle }) => {
   const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const CustomInput = ({ onChange, initialValue, type, placeholder }) => {
       type={type}
       value={value}
       onChange={(e) => setValue(e.target.value)}
+      style={customStyle ?? customStyle}
     />
   );
 };

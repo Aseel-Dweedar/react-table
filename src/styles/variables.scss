@@ -1,0 +1,18 @@
+$color-background-primary: #000000;
+$color-background-secondary: #303030;
+$color-background-secondary-hover: darken($color-background-secondary, 2%);
+$color-bright: #D93954;
+$color-header-background: #181818;
+$color-table-head: #464646;
+$color-table-body: #2d2d2d;
+$color-font-default: #ffffff;
+$color-font-details: #747474;
+
+$border-color-default: #ffffff;
+
+$border-radius-default: 4px;
+
+$box-shadow-default: 1px 1px 6px #4c4c4cb5;
+
+$filter-img-white: invert(100%) sepia(5%) saturate(684%) hue-rotate(179deg) brightness(100%) contrast(102%);
+$filter-img-white-hover: invert(26%) sepia(94%) saturate(1771%) hue-rotate(329deg) brightness(91%) contrast(85%);

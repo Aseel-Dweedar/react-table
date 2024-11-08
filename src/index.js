@@ -1,11 +1,34 @@
 import React from "react";
+import "./styles/index.scss";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./index.css"
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/posts" replace />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/posts",
+    element: <App />,
+    children: [
+      {
+        path: "/posts/:PostId",
+        element: <App />,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
